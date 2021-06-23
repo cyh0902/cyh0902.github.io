@@ -54,8 +54,8 @@
 
     
     <div class="article-meta">
-      <a href="/2021/06/22/%E5%BC%80%E7%AA%97%E5%87%BD%E6%95%B0/" class="article-date">
-  <time datetime="2021-06-22T14:10:53.000Z" itemprop="datePublished">2021-06-22</time>
+      <a href="/2021/06/23/%E5%BC%80%E7%AA%97%E5%87%BD%E6%95%B0/" class="article-date">
+  <time datetime="2021-06-23T14:34:30.000Z" itemprop="datePublished">2021-06-23</time>
 </a>
       
     </div>
@@ -78,36 +78,36 @@
 <h4 id="排序开窗函数"><a href="#排序开窗函数" class="headerlink" title="排序开窗函数"></a>排序开窗函数</h4><p>排序函数(列) OVER(选项)，这里的选项可以是ORDER BY子句，也可以是　OVER（PARTITION BY子句　ORDER BY子句），但不可以是PARTITION BY子句.开窗函数的OVER关键字后括号中的可以使用PARTITION BY 子句来定义行的分区来供进行聚合计算。与GROUP BY 子句不同，PARTITION BY 子句创建的分区是独立于结果集的，创建的分区只是供进行聚合计算的，而且不同的开窗函数所创建的分区也不互相影响。    </p>
 <h6 id="测试数据"><a href="#测试数据" class="headerlink" title="测试数据"></a>测试数据</h6><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">CREATE TABLE `test_row_number_over` (</span><br><span class="line">	`id` VARCHAR ( 10 ) CHARACTER </span><br><span class="line">	SET utf8 COLLATE utf8_general_ci NOT NULL COMMENT &#x27;主键&#x27;,</span><br><span class="line">	`name` VARCHAR ( 10 ) CHARACTER </span><br><span class="line">	SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT &#x27;姓名&#x27;,</span><br><span class="line">	`age` VARCHAR ( 10 ) CHARACTER </span><br><span class="line">	SET utf8 COLLATE utf8_general_ci DEFAULT NULL COMMENT &#x27;年龄&#x27;,</span><br><span class="line">`salary` INT DEFAULT NULL COMMENT &#x27;工资&#x27; </span><br><span class="line">) ENGINE = INNODB DEFAULT CHARSET = utf8mb3 COMMENT = &#x27;练习开窗函数&#x27;;</span><br></pre></td></tr></table></figure>
 
-<p><img src="image-20210528145308367.png" alt="image-20210528145308367"></p>
+<p><img src="/2021/06/23/%E5%BC%80%E7%AA%97%E5%87%BD%E6%95%B0/image-20210528145308367.png" alt="image-20210528145308367"></p>
 <h5 id="row-number-over"><a href="#row-number-over" class="headerlink" title="row_number() over()"></a>row_number() over()</h5><p>对相等的值不进行区分，相等的值对应的排名相同，序号从1到n连续。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">SELECT</span><br><span class="line">	id,</span><br><span class="line">	`name`,</span><br><span class="line">	age,</span><br><span class="line">	salary,</span><br><span class="line">	row_number ( ) over ( ORDER BY salary DESC ) rn </span><br><span class="line">FROM</span><br><span class="line">	TEST_ROW_NUMBER_OVER t;</span><br></pre></td></tr></table></figure>
 
-<p><img src="image-20210528145415622.png" alt="image-20210528145415622"></p>
+<p><img src="/2021/06/23/%E5%BC%80%E7%AA%97%E5%87%BD%E6%95%B0/image-20210528145415622.png" alt="image-20210528145415622"></p>
 <h5 id="rank-over"><a href="#rank-over" class="headerlink" title="rank() over()"></a>rank() over()</h5><p>相等的值排名相同，但若有相等的值，则序号从1到n不连续。如果有两个人都排在第3名，则没有第4名。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">SELECT</span><br><span class="line">	id,</span><br><span class="line">	`name`,</span><br><span class="line">	age,</span><br><span class="line">	salary,</span><br><span class="line">	row_number ( ) over ( ORDER BY salary DESC ) rn </span><br><span class="line">FROM</span><br><span class="line">	TEST_ROW_NUMBER_OVER t;</span><br></pre></td></tr></table></figure>
 
 
 
-<p><img src="image-20210528145331818.png" alt="image-20210528145331818"></p>
+<p><img src="/2021/06/23/%E5%BC%80%E7%AA%97%E5%87%BD%E6%95%B0/image-20210528145331818.png" alt="image-20210528145331818"></p>
 <h5 id="dense-rank-over"><a href="#dense-rank-over" class="headerlink" title="dense_rank() over()"></a>dense_rank() over()</h5><p>对相等的值排名相同，但序号从1到n连续。如果有两个人都排在第一名，则排在第2名（假设仅有1个第二名）的人是第3个人。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">SELECT</span><br><span class="line">	id,</span><br><span class="line">	`name`,</span><br><span class="line">	age,</span><br><span class="line">	salary,</span><br><span class="line">	dense_rank ( ) over ( ORDER BY salary DESC ) rn </span><br><span class="line">FROM</span><br><span class="line">	TEST_ROW_NUMBER_OVER t;</span><br></pre></td></tr></table></figure>
 
-<p><img src="image-20210528145522876.png" alt="image-20210528145522876"></p>
+<p><img src="/2021/06/23/%E5%BC%80%E7%AA%97%E5%87%BD%E6%95%B0/image-20210528145522876.png" alt="image-20210528145522876"></p>
 <h5 id="ntile-n-over"><a href="#ntile-n-over" class="headerlink" title="ntile(n) over()"></a>ntile(n) over()</h5><p>可以看作是把有序的数据集合平均分配到指定的数量n的桶中,将桶号分配给每一行，排序对应的数字为桶号。如果不能平均分配，则较小桶号的桶分配额外的行，并且各个桶中能放的数据条数最多相差1。</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">SELECT</span><br><span class="line">	id,</span><br><span class="line">	`name`,</span><br><span class="line">	age,</span><br><span class="line">	salary,</span><br><span class="line">	ntile ( 4 ) over ( ORDER BY salary DESC ) rn </span><br><span class="line">FROM</span><br><span class="line">	TEST_ROW_NUMBER_OVER t;</span><br></pre></td></tr></table></figure>
 
-<p><img src="image-20210528150835008.png" alt="image-20210528150835008"></p>
+<p><img src="/2021/06/23/%E5%BC%80%E7%AA%97%E5%87%BD%E6%95%B0/image-20210528150835008.png" alt="image-20210528150835008"></p>
 <h3 id="开窗函数和聚合函数的区别"><a href="#开窗函数和聚合函数的区别" class="headerlink" title="开窗函数和聚合函数的区别"></a>开窗函数和聚合函数的区别</h3><p>（1）SQL 标准允许将所有聚合函数用作开窗函数，用OVER 关键字区分开窗函数和聚合函数。</p>
 <p>（2）聚合函数每组只返回一个值，开窗函数每组可返回多个值。</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://cyh0902.github.io/2021/06/22/%E5%BC%80%E7%AA%97%E5%87%BD%E6%95%B0/" data-id="ckq84vgy60004y8vthu9j4dme" class="article-share-link">
+      <a data-url="https://cyh0902.github.io/2021/06/23/%E5%BC%80%E7%AA%97%E5%87%BD%E6%95%B0/" data-id="ckq9mbgps0004z4vt3sg12jdb" class="article-share-link">
         分享
       </a>
       
-<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL%E3%80%81SQL/" rel="tag">MySQL、SQL</a></li></ul>
+<ul class="article-tag-list" itemprop="keywords"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/MySQL-SQL/" rel="tag">MySQL,SQL</a></li></ul>
 
     </footer>
 
